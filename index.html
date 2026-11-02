@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BingoMachinePlus</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d0e15">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bingo">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+  <div class="background-effects">
+    <div class="grid-overlay"></div>
+    <div class="ambient-glow cyan"></div>
+    <div class="ambient-glow purple"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="neon-header">
+      <h1 class="neon-title">BINGO MACHINE PLUS</h1>
+      <div class="controls-top">
+        <div class="select-group">
+          <label for="maxNumSelect">MAX:</label>
+          <select id="maxNumSelect" class="neon-select">
+            <option value="75" selected>75 (Standard)</option>
+            <option value="90">90</option>
+            <option value="50">50</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <button id="resetBtn" class="neon-button danger">RESET</button>
+      </div>
+    </header>
+
+    <main class="main-stage">
+      <div class="slot-machine-frame">
+        <div class="neon-border-box">
+          <div class="slot-display-wrap">
+            <div class="reel-container" id="reelContainer">
+              <div class="reel" id="reel">
+                <div class="reel-digit" id="currentDigit"><span class="d" id="digitTens">0</span><span class="d" id="digitOnes">0</span></div>
+              </div>
+            </div>
+            <div class="slot-shine"></div>
+          </div>
+          <div class="slot-status" id="slotStatus" aria-live="polite">READY</div>
+        </div>
+
+        <div class="action-controls">
+          <button id="drawBtn" class="neon-button primary large">
+            <span class="btn-text">SPIN!</span>
+          </button>
+          <button id="repeatBtn" class="neon-button sub" disabled>READ AGAIN</button>
+          <button id="bigBtn" class="neon-button sub" disabled>BIG</button>
+        </div>
+        <div class="action-controls action-extra">
+          <button id="muteBtn" class="neon-button sub">SOUND ON</button>
+          <button id="undoBtn" class="neon-button sub" disabled>UNDO</button>
+          <button id="fullBtn" class="neon-button sub">FULL</button>
+        </div>
+        <p class="key-hint">Keys: Space = spin / R = read again / B = big number / M = sound / F = fullscreen / Esc = close</p>
+        <div class="recent-box">
+          <h3>LAST 5 DRAWS</h3>
+          <div class="recent-list" id="recentList"></div>
+        </div>
+      </div>
+
+      <section class="history-section">
+        <div class="history-header">
+          <h2>DRAWN NUMBERS (<span id="drawnCount">0</span>/<span id="maxCountDisplay">75</span>)</h2>
+          <div class="latest-badge">LATEST: <span id="latestNum">--</span></div>
+        </div>
+
+        <div class="bingo-board" id="bingoBoard"></div>
+      </section>
+    </main>
+  </div>
+
+  <canvas id="confetti"></canvas>
+  <div id="flash" class="flash"></div>
+  <div id="bigOverlay" class="big-overlay" role="dialog" aria-label="Latest number">
+    <div class="big-label">NUMBER</div>
+    <div class="big-num" id="bigNum">00</div>
+    <div class="big-label">Tap anywhere to close</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

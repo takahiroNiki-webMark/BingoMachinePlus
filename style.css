@@ -1,0 +1,690 @@
+/* ============================
+   ローカルフォント宣言（最上部に置く）
+   ============================ */
+
+@font-face {
+  font-family: 'OrbitronLocal';
+  src: url('./fonts/Orbitron-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Exo2Local';
+  src: url('./fonts/Exo2-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Exo2Local';
+  src: url('./fonts/Exo2-Black.ttf') format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'RajdhaniLocal';
+  src: url('./fonts/Rajdhani-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
+
+:root {
+  --bg-color: #08090f;
+  --card-bg: #11131f;
+  
+  /* メインカラー */
+  --cyan-main: #00bfe8;
+  --purple-main: #9000bf;
+  --red-main: red;
+  
+  --text-color: #ffffff;
+
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 30px;
+  overflow-x: hidden;
+}
+
+.background-effects {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0, 191, 232, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 191, 232, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.2;
+}
+.ambient-glow.cyan { top: 10%; left: 15%; background: var(--cyan-main); }
+.ambient-glow.purple { bottom: 10%; right: 15%; background: var(--purple-main); }
+
+.app-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.neon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(0, 191, 232, 0.3);
+  padding-bottom: 15px;
+}
+
+/* メインタイトル */
+.neon-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.controls-top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* MAXラベル：明るい白で統一 */
+.select-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+/* 【修正】75 (Standard) などの選択肢枠：暗い背景に太い白文字で視認性を確保 */
+.neon-select {
+  background: #1a1c2e;
+  color: #ffffff;
+  border: 2px solid var(--cyan-main);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 1.1rem;
+  outline: none;
+  cursor: pointer;
+  text-shadow: none;
+}
+
+.neon-select option {
+  background-color: #1a1c2e;
+  color: #ffffff;
+}
+
+.neon-button {
+  background: transparent;
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-weight: 900;
+  border: 2px solid #ffffff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 1.5px;
+  text-shadow: none;
+}
+
+.neon-button.danger {
+  border-color: var(--red-main);
+  color: #ff4d4d;
+}
+.neon-button.danger:hover {
+  background: var(--red-main);
+  color: #ffffff;
+}
+
+/* 【修正】SPIN! ボタン：塗りを濃くし、純白の極太文字で文字がはっきり読めるように設定 */
+.neon-button.primary.large {
+  width: 100%;
+  padding: 16px;
+  font-size: 2.2rem;
+  font-weight: 900;
+  border-color: var(--cyan-main);
+  color: #ffffff !important;
+  background: rgba(0, 191, 232, 0.35);
+  text-shadow: none !important;
+  letter-spacing: 3px;
+}
+.neon-button.primary.large:hover:not(:disabled) {
+  background: var(--cyan-main);
+  color: #000000 !important;
+}
+
+.main-stage {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 25px;
+  align-items: start;
+}
+
+.slot-machine-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.neon-border-box {
+  background: var(--card-bg);
+  border: 2px solid var(--cyan-main);
+  border-radius: 16px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slot-display-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #000;
+  border-radius: 12px;
+  border: 2px solid var(--purple-main);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reel-digit {
+  font-size: 6rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.reel-digit.spinning {
+  animation: sharpSpin 0.1s infinite linear;
+  color: var(--cyan-main);
+}
+
+@keyframes sharpSpin {
+  0% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+  100% { transform: translateY(-6px); }
+}
+
+.slot-status {
+  margin-top: 15px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--cyan-main);
+  text-shadow: none;
+}
+
+.history-section {
+  background: var(--card-bg);
+  border: 1px solid rgba(0, 191, 232, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 【修正】DRAWN NUMBERS ヘッダー：白文字・太字にして視認性アップ */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 15px;
+  padding-top: 5px;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.history-header h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.latest-badge {
+  background: rgba(255, 0, 0, 0.25);
+  border: 1px solid var(--red-main);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 900;
+  color: #ff4d4d;
+  text-shadow: none;
+}
+
+.bingo-board {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 8px;
+  width: 100%;
+  padding: 12px 6px;
+  box-sizing: border-box;
+  overflow: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bingo-board::-webkit-scrollbar {
+  display: none;
+}
+
+/* 未当選マス */
+.bingo-cell {
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+  text-shadow: none;
+}
+
+/* 【修正】当確数字（当選済み）：高コントラストなベタ塗りシアン背景に「完全な黒文字」でクッキリ表示 */
+.bingo-cell.drawn {
+  background: var(--cyan-main) !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* 【修正】最新の当確数字：赤背景に「完全な白文字」で表示 */
+.bingo-cell.latest {
+  background: var(--red-main) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  transform: scale(1.1);
+  z-index: 2;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+/* ============================
+   読みやすさ改善ポイントのみ強化
+   ============================ */
+
+/* MAX選択肢（75 / 90 / 50 / 30） */
+.neon-select {
+  background: #0f111d;
+  color: #ffffff;
+  border: 3px solid var(--cyan-main);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 1.3rem; /* ← 読みやすさUP */
+  letter-spacing: 1px;
+}
+
+/* DRAWN NUMBERS */
+.history-header h2 {
+  font-size: 1.45rem; /* ← 少し大きく */
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+}
+
+/* 最新番号バッジ */
+.latest-badge {
+  background: rgba(255, 0, 0, 0.35);
+  border: 2px solid var(--red-main);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 1.2rem; /* ← 読みやすさUP */
+  font-weight: 900;
+  color: #ffffff;
+}
+
+/* SPIN! ボタン */
+.neon-button.primary.large {
+  width: 100%;
+  padding: 18px;
+  font-size: 2.6rem; /* ← 大きくして視認性UP */
+  font-weight: 900;
+  border-color: var(--cyan-main);
+  background: var(--cyan-main); /* ← 濃い背景に変更 */
+  color: #000000 !important; /* ← 黒文字でコントラストUP */
+  letter-spacing: 3px;
+}
+
+/* ホバー時 */
+.neon-button.primary.large:hover:not(:disabled) {
+  background: #00eaff;
+  color: #000000 !important;
+}
+
+/* 当確数字（drawn） */
+.bingo-cell.drawn {
+  background: var(--cyan-main) !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  font-size: 1.25rem !important; /* ← 読みやすさUP */
+  font-weight: 900 !important;
+}
+
+/* 最新数字（latest） */
+.bingo-cell.latest {
+  background: var(--red-main) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+  font-size: 1.35rem !important; /* ← さらに強調 */
+  font-weight: 900 !important;
+  transform: scale(1.15);
+  z-index: 2;
+}
+
+
+
+
+
+
+
+
+
+
+.reel-digit.flash {
+  animation: flashPulse 0.25s ease-out;
+}
+
+@keyframes flashPulse {
+  0%   { text-shadow: 0 0 0px #0ff; }
+  50%  { text-shadow: 0 0 40px #0ff; }
+  100% { text-shadow: 0 0 0px #0ff; }
+}
+.bingo-cell.latest {
+  animation: popGlow 0.35s ease-out;
+}
+
+@keyframes popGlow {
+  0%   { transform: scale(0.6); box-shadow: 0 0 0px #f00; }
+  60%  { transform: scale(1.2); box-shadow: 0 0 20px #f00; }
+  100% { transform: scale(1.1); box-shadow: 0 0 0px #f00; }
+}
+
+.neon-button.primary.large:active {
+  animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+  0%   { box-shadow: 0 0 0px #0ff; }
+  100% { box-shadow: 0 0 40px #0ff; }
+}
+
+.grid-overlay {
+  animation: drift 12s linear infinite;
+}
+
+@keyframes drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+.bingo-cell.latest {
+  animation: colorShift 0.5s ease-out;
+}
+
+@keyframes colorShift {
+  0%   { background: red; }
+  100% { background: cyan; }
+}
+
+
+/* ============================
+   v2: reels / recent / big number / effects
+   ============================ */
+:root { --font-main: 'Exo2Local', 'Segoe UI', system-ui, sans-serif; }
+
+.reel-digit { display: flex; justify-content: center; gap: 0.06em; font-variant-numeric: tabular-nums; }
+.reel-digit .d { display: inline-block; min-width: 0.62em; text-align: center; }
+.reel-digit .d.spinning { color: var(--cyan-main); animation: sharpSpin 0.1s infinite linear; }
+.reel-digit .d.stopped { animation: stopBounce 0.3s ease-out; }
+@keyframes stopBounce { 0% { transform: scale(1.3); color: var(--cyan-main); } 100% { transform: scale(1); } }
+
+.action-controls { display: flex; flex-wrap: wrap; gap: 10px; }
+.action-controls .neon-button.large { flex: 1 1 100%; }
+.action-controls .neon-button.sub { flex: 1 1 0; padding: 10px; font-size: 1rem; }
+.neon-button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.recent-box { background: var(--card-bg); border: 1px solid rgba(0, 191, 232, 0.3); border-radius: 12px; padding: 14px; }
+.recent-box h3 { font-size: 1rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; }
+.recent-list { display: flex; gap: 8px; }
+.recent-item { flex: 1; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; font-weight: 900; border-radius: 8px; color: #000; background: var(--cyan-main); border: 2px solid #fff; }
+.recent-item.empty { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.4); }
+.recent-item.newest:not(.empty) { background: var(--red-main); color: #fff; transform: scale(1.1); }
+
+.flash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 50; }
+.flash.on { animation: screenFlash 0.45s ease-out; }
+@keyframes screenFlash { 0% { opacity: 0.85; } 100% { opacity: 0; } }
+
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 80; }
+
+.big-overlay { position: fixed; inset: 0; z-index: 70; display: none; flex-direction: column;
+  align-items: center; justify-content: center; background: rgba(5, 6, 12, 0.96); cursor: pointer; }
+.big-overlay.show { display: flex; animation: bigIn 0.35s ease-out; }
+.big-num { font-size: min(55vw, 68vh); font-weight: 900; line-height: 1; color: #fff; text-shadow: 0 0 60px var(--cyan-main); }
+.big-label { font-size: min(4vw, 4vh); font-weight: 900; letter-spacing: 4px; color: var(--cyan-main); }
+@keyframes bigIn { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+@media (max-width: 800px) {
+  .main-stage { grid-template-columns: 1fr; }
+  .bingo-board { grid-template-columns: repeat(10, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flash.on, .big-overlay.show, .reel-digit .d, .reel-digit .d.stopped { animation: none; }
+}
+
+
+/* =========================================
+   Layout polish: consistent controls, balanced columns,
+   and a persistent neon look for the main number display
+   ========================================= */
+
+/* Keep a clear, even separation between the main SPIN button
+   and the two secondary buttons. Secondary buttons share sizing. */
+.action-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 7px;
+  align-items: stretch;
+}
+
+.action-controls .neon-button.large {
+  flex: 1 1 100%;
+  margin-bottom: 1px;
+}
+
+.action-controls .neon-button.sub {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  padding: 11px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+  text-align: center;
+}
+
+/* Desktop: make the left and right columns share the same overall height.
+   The number board expands evenly to use the available right-column height,
+   including the 90-number / six-row layout. */
+@media (min-width: 801px) {
+  .main-stage {
+    align-items: stretch;
+  }
+
+  .slot-machine-frame {
+    height: 100%;
+  }
+
+  .history-section {
+    height: 100%;
+    min-height: 100%;
+  }
+
+  .history-section .bingo-board {
+    flex: 1 1 auto;
+    align-content: stretch;
+    grid-auto-rows: minmax(0, 1fr);
+  }
+
+  .history-section .bingo-cell {
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+}
+
+/* Main display: retain a subtle neon presence even before a draw.
+   The stopped digits brighten further when the result is revealed. */
+.slot-display-wrap {
+  border-color: rgba(144, 0, 191, 0.95);
+  box-shadow:
+    inset 0 0 18px rgba(0, 191, 232, 0.12),
+    0 0 10px rgba(144, 0, 191, 0.28),
+    0 0 22px rgba(0, 191, 232, 0.12);
+}
+
+.reel-digit {
+  color: #fff;
+  text-shadow:
+    0 0 5px rgba(0, 191, 232, 0.65),
+    0 0 13px rgba(0, 191, 232, 0.38);
+  transition: text-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.reel-digit .d {
+  text-shadow:
+    0 0 5px rgba(0, 191, 232, 0.65),
+    0 0 13px rgba(0, 191, 232, 0.38);
+}
+
+.reel-digit .d.stopped {
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 16px var(--cyan-main),
+    0 0 30px var(--cyan-main),
+    0 0 48px rgba(144, 0, 191, 0.9);
+  animation: stopBounce 0.3s ease-out, settledNeon 1.35s ease-in-out 0.3s 2;
+}
+
+@keyframes settledNeon {
+  0%, 100% {
+    text-shadow:
+      0 0 7px #fff,
+      0 0 16px var(--cyan-main),
+      0 0 30px var(--cyan-main);
+  }
+  50% {
+    text-shadow:
+      0 0 10px #fff,
+      0 0 24px #fff,
+      0 0 42px var(--cyan-main),
+      0 0 62px var(--purple-main);
+  }
+}
+
+/* Give the latest number in the board a matching neon accent,
+   while preserving its existing red highlight. */
+.bingo-cell.latest {
+  box-shadow:
+    0 0 8px rgba(255, 45, 45, 0.85),
+    0 0 18px rgba(255, 45, 45, 0.5) !important;
+  text-shadow: 0 0 7px rgba(255, 255, 255, 0.9) !important;
+}
+
+@media (max-width: 800px) {
+  .main-stage {
+    align-items: stretch;
+  }
+
+  .slot-machine-frame,
+  .history-section {
+    height: auto;
+  }
+
+  .history-section .bingo-board {
+    flex: initial;
+    grid-auto-rows: auto;
+  }
+
+  .history-section .bingo-cell {
+    aspect-ratio: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-digit .d.stopped {
+    animation: none;
+  }
+}
+
+
+/* v3: extra controls, hint, focus */
+.action-controls.action-extra { margin-top: 0; }
+.neon-button.off { opacity: 0.7; border-style: dashed; }
+.key-hint { font-size: 0.8rem; line-height: 1.5; color: rgba(255, 255, 255, 0.55); }
+.neon-button:focus-visible, .neon-select:focus-visible { outline: 3px solid #ffd400; outline-offset: 3px; }
